@@ -16,8 +16,6 @@ radarr:
       - /media/arr/radarr/config:/config
       - /media/arr/radarr/movies:/movies #optional
       - /media/arr/qbittorrent/downloads:/downloads #optional
-    ports:
-      - 7878:7878
     restart: unless-stopped
 
 ######################
@@ -35,8 +33,6 @@ radarr:
       - /media/arr/sonarr/config:/config
       - /media/arr/sonarr/tvseries:/tv #optional
       - /media/arr/qbittorrent/downloads:/downloads #optional
-    ports:
-      - 8989:8989
     restart: unless-stopped
 
 ######################
@@ -52,8 +48,6 @@ radarr:
       - TZ=Etc/UTC
     volumes:
       - /media/arr/prowlarr/config:/config
-    ports:
-      - 9696:9696
     restart: unless-stopped
 
 ######################
@@ -72,10 +66,6 @@ radarr:
     volumes:
       - /media/arr/qbittorrent/config:/config
       - /media/arr/qbittorrent/downloads:/downloads #optional
-    ports:
-      - 8080:8080
-      - 6881:6881
-      - 6881:6881/udp
     restart: unless-stopped
 
 ######################
@@ -118,3 +108,10 @@ radarr:
       - OPENVPN_USER=abc
       - OPENVPN_PASSWORD=abc
       - FREE_ONLY=on
+    ports:
+      - 7878:7878 #radarr
+      - 8989:8989 #sonarr
+      - 9696:9696 #prowlarr
+      - 8080:8080 #qbittorrent
+      - 6881:6881 #qbittorrent
+      - 6881:6881/udp #qbittorrent
