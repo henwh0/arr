@@ -13,9 +13,9 @@ radarr:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /path/to/radarr/data:/config
-      - /path/to/movies:/movies #optional
-      - /path/to/download-client-downloads:/downloads #optional
+      - /media/arr/radarr/config:/config
+      - /media/arr/radarr/movies:/movies #optional
+      - /media/arr/qbittorrent/downloads:/downloads #optional
     ports:
       - 7878:7878
     restart: unless-stopped
@@ -32,9 +32,9 @@ radarr:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /path/to/sonarr/data:/config
-      - /path/to/tvseries:/tv #optional
-      - /path/to/downloadclient-downloads:/downloads #optional
+      - /media/arr/sonarr/config:/config
+      - /media/arr/sonarr/tvseries:/tv #optional
+      - /media/arr/qbittorrent/downloads:/downloads #optional
     ports:
       - 8989:8989
     restart: unless-stopped
@@ -51,7 +51,7 @@ radarr:
       - PGID=1000
       - TZ=Etc/UTC
     volumes:
-      - /path/to/prowlarr/data:/config
+      - /media/arr/prowlarr/config:/config
     ports:
       - 9696:9696
     restart: unless-stopped
@@ -70,8 +70,8 @@ radarr:
       - WEBUI_PORT=8080
       - TORRENTING_PORT=6881
     volumes:
-      - /path/to/qbittorrent/appdata:/config
-      - /path/to/downloads:/downloads #optional
+      - /media/arr/qbittorrent/config:/config
+      - /media/arr/qbittorrent/downloads:/downloads #optional
     ports:
       - 8080:8080
       - 6881:6881
@@ -91,12 +91,28 @@ radarr:
       - TZ=Etc/UTC
       - JELLYFIN_PublishedServerUrl=http://192.168.0.5 #optional
     volumes:
-      - /path/to/jellyfin/library:/config
-      - /path/to/tvseries:/data/tvshows
-      - /path/to/movies:/data/movies
+      - /media/arr/jellyfin/config:/config
+      - /media/arr/sonarr/tvseries:/data/tvshows
+      - /media/arr/radarr/movies:/data/movies
     ports:
       - 8096:8096
       - 8920:8920 #optional
       - 7359:7359/udp #optional
       - 1900:1900/udp #optional
     restart: unless-stopped
+
+######################
+# GLUETUN
+######################
+
+  gluetun:
+    image: qmcgaw/gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - VPN_SERVICE_PROVIDER=protonvpn
+      - VPN_TYPE=wireguard
+      - WIREGUARD_PRIVATE_KEY=wOEI9rqqbDwnN8/Bpp22sVz48T71vJ4fYmFWujulwUU=
+      - SERVER_COUNTRIES=Netherlands
