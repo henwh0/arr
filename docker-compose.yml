@@ -107,12 +107,14 @@ radarr:
 
   gluetun:
     image: qmcgaw/gluetun
+    container_name: gluetun
     cap_add:
       - NET_ADMIN
     devices:
       - /dev/net/tun:/dev/net/tun
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
-      - VPN_TYPE=wireguard
-      - WIREGUARD_PRIVATE_KEY=wOEI9rqqbDwnN8/Bpp22sVz48T71vJ4fYmFWujulwUU
+      - VPN_TYPE=openvpn
+      - OPENVPN_USER=abc
+      - OPENVPN_PASSWORD=abc
       - FREE_ONLY=on
