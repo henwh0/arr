@@ -10,7 +10,8 @@ radarr:
     container_name: radarr
     network_mode: service:gluetun
     depends_on:
-      - gluetun
+      gluetun:
+        conditon: service_healthy
     environment:
       - PUID=1000
       - PGID=1000
@@ -30,7 +31,8 @@ radarr:
     container_name: sonarr
     network_mode: service:gluetun
     depends_on:
-      - gluetun
+      gluetun:
+        conditon: service_healthy
     environment:
       - PUID=1000
       - PGID=1000
@@ -50,7 +52,8 @@ radarr:
     container_name: prowlarr
     network_mode: service:gluetun
     depends_on:
-      - gluetun
+      gluetun:
+        conditon: service_healthy
     environment:
       - PUID=1000
       - PGID=1000
@@ -68,7 +71,8 @@ radarr:
     container_name: qbittorrent
     network_mode: service:gluetun
     depends_on:
-      - gluetun
+      gluetun:
+        conditon: service_healthy
     environment:
       - PUID=1000
       - PGID=1000
