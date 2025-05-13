@@ -31,8 +31,7 @@ services:
     container_name: sonarr
     network_mode: service:gluetun
     depends_on:
-      gluetun:
-        condition: service_healthy
+      - gluetun
     environment:
       - PUID=1000
       - PGID=1000
@@ -52,8 +51,7 @@ services:
     container_name: prowlarr
     network_mode: service:gluetun
     depends_on:
-      gluetun:
-        condition: service_healthy
+      - gluetun
     environment:
       - PUID=1000
       - PGID=1000
@@ -71,8 +69,7 @@ services:
     container_name: qbittorrent
     network_mode: service:gluetun
     depends_on:
-      gluetun:
-        condition: service_healthy
+      - gluetun
     environment:
       - PUID=1000
       - PGID=1000
@@ -106,6 +103,22 @@ services:
       - 7359:7359/udp #optional
       - 1900:1900/udp #optional
     restart: unless-stopped
+
+######################
+# JELLYSEERR
+#####################
+
+  jellyseerr:
+       image: fallenbagel/jellyseerr:latest
+       container_name: jellyseerr
+       environment:
+            - LOG_LEVEL=debug
+            - TZ=Etc/UTC
+       ports:
+            - 5055:5055
+       volumes:
+            - /media/arr/jellyseer/config:/config
+       restart: unless-stopped
 
 ######################
 # GLUETUN
