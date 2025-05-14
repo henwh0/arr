@@ -10,8 +10,7 @@ services:
     container_name: radarr
     network_mode: service:gluetun
     depends_on:
-      gluetun:
-        condition: service_healthy
+      - gluetun
     environment:
       - PUID=1000
       - PGID=1000
