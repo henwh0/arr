@@ -91,7 +91,7 @@ services:
       - PUID=1000
       - PGID=1000
       - TZ=Etc/UTC
-      - JELLYFIN_PublishedServerUrl=http://192.168.0.21:8096 #optional
+      - JELLYFIN_PublishedServerUrl=http://Your_URL_Here:8096 #optional
     volumes:
       - /media/arr/jellyfin/config:/config
       - /media/arr/sonarr/tvseries:/data/tvshows
