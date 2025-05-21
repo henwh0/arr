@@ -132,10 +132,7 @@ services:
       - /dev/net/tun:/dev/net/tun
     environment:
       - VPN_SERVICE_PROVIDER=protonvpn
-      - VPN_TYPE=openvpn
-      - OPENVPN_USER=abc
-      - OPENVPN_PASSWORD=abc
-      - FREE_ONLY=on
+      - VPN_TYPE=wireguard
     ports:
       - 7878:7878 #radarr
       - 8989:8989 #sonarr
@@ -143,3 +140,5 @@ services:
       - 8080:8080 #qbittorrent
       - 6881:6881 #qbittorrent
       - 6881:6881/udp #qbittorrent
+    volumes:
+      - /media/arr/gluetun/config:/config
